@@ -91,14 +91,24 @@ app.get("/", (req, res) => {
 
 // Set up the /info/{id} path that renders planet.ejs based on index
 // e.g. /info/0 sends back Mercury's info page
-
+app.get("/info/:planet", (req, res) => {
+  const id = req.params.planet
+  res.render("planet.ejs", spaceData[id])
+})
 // Go into planet.ejs and plug in the attributes
 
 // Set up the /api/{id} path that sends back the planet object based on index
 // e.g. /api/0 sends back Mercury's object
-
+app.get("/api/:planet", (req, res) => {
+  const x = req.params.planet
+  res.json(spaceData[x])
+})
 // Set up the /image/{id} path that sends back the image file of the planet based on index
 // e.g. /image/0 sends back Mercury's image
+app.get("/image/:planet", (req, res) => {
+  const img = req.params.planet
+  res.send(spaceData[img].imagePath)
+})
 
 app.listen(3000, () => {
   console.log("Server running");
